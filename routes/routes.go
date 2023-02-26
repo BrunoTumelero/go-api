@@ -6,6 +6,7 @@ import (
 
 	"github.com/BrunoTumelero/go-api/controlers"
 	"github.com/BrunoTumelero/go-api/middleware"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -18,5 +19,5 @@ func HandleResquest() {
 	r.HandleFunc("/persons/{id}", controlers.DeletePerson).Methods("Delete")
 	r.HandleFunc("/persons/{id}", controlers.EditPerson).Methods("Put")
 	r.HandleFunc("/persons/", controlers.CreatePerson).Methods("POST")
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
 }
